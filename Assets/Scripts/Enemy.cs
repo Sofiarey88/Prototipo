@@ -59,20 +59,27 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log($"<color=red>Enemigo {gameObject.name} recibió {cantidad} de daño y será destruido</color>");
 
-        // ======================
         // EFECTO DE PARTÍCULAS
-        // ======================
         if (deathParticles != null)
         {
             ParticleSystem efecto = Instantiate(deathParticles, transform.position, Quaternion.identity);
             efecto.Play();
-            Destroy(efecto.gameObject, 2f); // eliminar partículas
+            Destroy(efecto.gameObject, 2f);
+        }
+
+        // >>> REGISTRAR MUERTE <<<
+        EnemyManager manager = Object.FindFirstObjectByType<EnemyManager>();
+        if (manager != null)
+        {
+            manager.RegistrarMuerte();
         }
 
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmosSelected()
+
+
+private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, rangoDeteccion);

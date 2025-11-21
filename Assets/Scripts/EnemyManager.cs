@@ -1,28 +1,35 @@
 ﻿using UnityEngine;
-using TMPro; // IMPORTANTE
+using TMPro;
 
 public class EnemyManager : MonoBehaviour
 {
     public int enemigosTotales = 3;
     private int enemigosMuertos = 0;
+    public bool juegoTerminado = false;
 
-    public TMP_Text contadorText;   // ← aquí arrastrás TU TEXTO
-    public GameObject panelVictoria; // ← aquí arrastrás EL PANEL
+
+    public TMP_Text contadorText;
+    public GameObject panelVictoria;
 
     private void Start()
     {
+        // 🔥 CUENTA AUTOMÁTICAMENTE LOS ENEMIGOS EN LA ESCENA
+        enemigosTotales = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
         ActualizarContador();
         panelVictoria.SetActive(false);
     }
 
     public void RegistrarMuerte()
     {
-        enemigosMuertos++;
+        if (juegoTerminado) return; // ← evita activar dos paneles
 
+        enemigosMuertos++;
         ActualizarContador();
 
         if (enemigosMuertos >= enemigosTotales)
         {
+            juegoTerminado = true;   // ← MARCA EL JUEGO COMO FINALIZADO
             panelVictoria.SetActive(true);
         }
     }

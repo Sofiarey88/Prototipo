@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class TimerManager : MonoBehaviour
@@ -11,8 +11,16 @@ public class TimerManager : MonoBehaviour
 
     private bool terminado = false;
 
+    // ✔ añadido: referencia al panel de victoria (NO necesita modificar otros scripts)
+    private GameObject panelVictoria;
+
     void Start()
     {
+        // ✔ buscamos el panel de victoria aunque esté DESACTIVADO
+        EnemyManager em = Object.FindFirstObjectByType<EnemyManager>();
+        if (em != null)
+            panelVictoria = em.panelVictoria;
+
         tiempoRestante = tiempoInicial;
 
         if (panelGameOver != null)
@@ -22,6 +30,10 @@ public class TimerManager : MonoBehaviour
     void Update()
     {
         if (terminado) return;
+
+        // ✔ si el panel de victoria está activo → NO mostrar GameOver
+        if (panelVictoria != null && panelVictoria.activeSelf)
+            return;
 
         tiempoRestante -= Time.deltaTime;
 
