@@ -3,7 +3,7 @@ using TMPro;
 
 public class TimerManager : MonoBehaviour
 {
-    public float tiempoInicial = 30f;
+    public float tiempoInicial = 50f;
     private float tiempoRestante;
 
     public TextMeshProUGUI textoTiempo;

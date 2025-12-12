@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public int enemigosTotales = 3;   // cuántos enemigos necesitas matar
+    public int enemigosTotales = 4;   // cuántos enemigos necesitas matar
     public int enemigosMuertos = 0;
 
     public GameObject pantallaVictoria; // panel de victoria en canvas
