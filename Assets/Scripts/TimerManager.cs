@@ -11,12 +11,10 @@ public class TimerManager : MonoBehaviour
 
     private bool terminado = false;
 
-    // ✔ añadido: referencia al panel de victoria (NO necesita modificar otros scripts)
     private GameObject panelVictoria;
 
     void Start()
     {
-        // ✔ buscamos el panel de victoria aunque esté DESACTIVADO
         EnemyManager em = Object.FindFirstObjectByType<EnemyManager>();
         if (em != null)
             panelVictoria = em.panelVictoria;
@@ -25,13 +23,15 @@ public class TimerManager : MonoBehaviour
 
         if (panelGameOver != null)
             panelGameOver.SetActive(false);
+
+        // ✔ Aseguro que el tiempo esté funcionando al iniciar
+        Time.timeScale = 1f;
     }
 
     void Update()
     {
         if (terminado) return;
 
-        // ✔ si el panel de victoria está activo → NO mostrar GameOver
         if (panelVictoria != null && panelVictoria.activeSelf)
             return;
 
@@ -47,6 +47,9 @@ public class TimerManager : MonoBehaviour
 
             if (panelGameOver != null)
                 panelGameOver.SetActive(true);
+
+            // ✔ DETENER EL JUEGO COMPLETAMENTE
+            Time.timeScale = 0f;
         }
     }
 }
